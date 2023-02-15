@@ -9,13 +9,13 @@ import (
 func TestSend(t *testing.T) {
 	conf, err := InitConfig()
 	if err != nil {
-		log.Println("[test] failed to initialize config: ", err)
+		t.Fatalf("[test] failed to initialize config: %v", err)
 	}
 	GLO_CONF = conf
 
-	m := GetType()
-	if !Enabled() || m == nil {
-		t.Fatalf("[test] failed to get type...")
+	m, err := GetType()
+	if !Enabled() || err != nil {
+		t.Fatalf("[test] failed to get type %v", err)
 	}
 	if err = m.Send(Body{
 		Title:   "Hello",

@@ -37,6 +37,8 @@ message:
     to: ""      #分号内空格分开
 ```
 
+> [Bark is an iOS App which allows you to push custom notifications to your iPhone](https://github.com/Finb/Bark)
+
 ```go
 func main() {
 	/*配置初始化*/

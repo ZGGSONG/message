@@ -13,9 +13,12 @@ func (s Service) Run() error {
 }
 
 func send(body Body) error {
-	m := GetType()
-	if m == nil || !Enabled() {
-		return errors.New("config message type error or not enabled")
+	m, err := GetType()
+	if err != nil {
+		return err
+	}
+	if !Enabled() {
+		return errors.New("config set message not enabled")
 	}
 	if err := m.Send(body); err != nil {
 		return err

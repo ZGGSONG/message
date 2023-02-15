@@ -1,6 +1,7 @@
 package message
 
 import (
+	"errors"
 	"fmt"
 	"github.com/jordan-wright/email"
 	"net/smtp"
@@ -17,7 +18,6 @@ type Mail struct {
 }
 
 func (m *Mail) Send(body Body) error {
-	//log.Printf("[mail] sending message...")
 	e := email.NewEmail()
 	e.From = m.FromName
 	e.To = m.To
@@ -26,8 +26,7 @@ func (m *Mail) Send(body Body) error {
 	addr := fmt.Sprintf("%v:%v", m.Host, m.Port)
 	err := e.Send(addr, smtp.PlainAuth("", m.Username, m.Password, m.Host))
 	if err != nil {
-		//log.Fatalf("[mail] send failed: %v\n", err)
-		return err
+		return errors.New(fmt.Sprintf("mail send failed: %v", err))
 	}
 	//log.Printf("[mail] send successful")
 	return nil
