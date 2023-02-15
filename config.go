@@ -1,10 +1,8 @@
-package config
+package message
 
 import (
 	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
-	"github.com/zggsong/message/internal/global"
-	"github.com/zggsong/message/internal/model"
 	"os"
 )
 
@@ -13,7 +11,7 @@ import (
 //	@Description: 初始化配置
 //	@return model.Config
 //	@return error
-func InitConfig() (model.Config, error) {
+func InitConfig() (Config, error) {
 	workDir, _ := os.Getwd()
 	viper.SetConfigName("config")
 	viper.SetConfigType("yml")
@@ -23,12 +21,12 @@ func InitConfig() (model.Config, error) {
 	viper.AddConfigPath("../../../config")
 	viper.AddConfigPath(workDir + "/config")
 	viper.OnConfigChange(func(e fsnotify.Event) {
-		global.GLO_CONF_CH <- updateConfig()
+		GLO_CONF_CH <- updateConfig()
 	})
 	viper.WatchConfig()
 	err := viper.ReadInConfig()
 	if err != nil {
-		return model.Config{}, err
+		return Config{}, err
 	}
 	return updateConfig(), nil
 }
@@ -37,8 +35,8 @@ func InitConfig() (model.Config, error) {
 //
 //	@Description: 更新配置
 //	@return model.Config
-func updateConfig() model.Config {
-	var config model.Config
+func updateConfig() Config {
+	var config Config
 	config.MsgEnabled = viper.GetBool("message.enabled")
 	config.MsgType = viper.GetString("message.type")
 	config.BarkUrl = viper.GetString("message.bark.url")

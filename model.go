@@ -1,4 +1,4 @@
-package model
+package message
 
 // Config
 // @Description: 配置

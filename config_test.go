@@ -1,13 +1,11 @@
-package config
+package message
 
 import (
-	"github.com/zggsong/message/internal/global"
-	"github.com/zggsong/message/internal/model"
 	"testing"
 )
 
 func TestConfig(t *testing.T) {
-	global.GLO_CONF_CH = make(chan model.Config)
+	GLO_CONF_CH = make(chan Config)
 	config, err := InitConfig()
 	if err != nil {
 		t.Fatalf("Failed to initialize config: %v", err)
@@ -19,7 +17,7 @@ func TestConfig(t *testing.T) {
 		if count > 5 {
 			return
 		}
-		config = <-global.GLO_CONF_CH
+		config = <-GLO_CONF_CH
 		count++
 		t.Log(config)
 	}

@@ -1,19 +1,17 @@
 package message
 
 import (
-	"github.com/zggsong/message/internal/config"
-	"github.com/zggsong/message/internal/global"
 	"log"
 	"testing"
 	"time"
 )
 
 func TestSend(t *testing.T) {
-	conf, err := config.InitConfig()
+	conf, err := InitConfig()
 	if err != nil {
 		log.Println("[test] failed to initialize config: ", err)
 	}
-	global.GLO_CONF = conf
+	GLO_CONF = conf
 
 	m := GetType()
 	if !Enabled() || m == nil {

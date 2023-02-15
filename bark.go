@@ -3,7 +3,6 @@ package message
 import (
 	"bytes"
 	"encoding/json"
-	"github.com/zggsong/message/internal/model"
 	"net/http"
 )
 
@@ -14,7 +13,7 @@ type Bark struct {
 
 func (b *Bark) Send(body Body) error {
 	//log.Printf("[bark] sending message...")
-	var reqBody = model.BarkRequest{
+	var reqBody = BarkRequest{
 		DeviceKey: b.key,
 		Title:     body.Title,
 		Body:      body.Content,
