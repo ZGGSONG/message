@@ -12,6 +12,9 @@ import (
 //	@return model.Config
 //	@return error
 func InitConfig() (Config, error) {
+	// 初始化channel
+	GLO_CONF_CH = make(chan Config)
+
 	workDir, _ := os.Getwd()
 	viper.SetConfigName("config")
 	viper.SetConfigType("yml")

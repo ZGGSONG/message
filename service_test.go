@@ -1,6 +1,7 @@
 package message
 
 import (
+	"log"
 	"testing"
 	"time"
 )
@@ -18,5 +19,10 @@ func TestService(t *testing.T) {
 	}}
 	if err = s.Run(); err != nil {
 		t.Fatalf("[test] failed to send message: %v", err)
+	}
+	for {
+		_conf := <-GLO_CONF_CH
+		log.Printf("config changed: %v", _conf)
+		GLO_CONF = _conf
 	}
 }
